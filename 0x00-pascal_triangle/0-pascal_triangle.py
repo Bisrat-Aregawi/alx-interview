@@ -19,7 +19,7 @@ def pascal_triangle(n):
             for j in range(i + 1):
                 if j == 0 or j == i:
                     current.append(1)
-                elif i > 1:
+                else:
                     current.append(
                         previous[j - 1] + previous[j]
                     )
