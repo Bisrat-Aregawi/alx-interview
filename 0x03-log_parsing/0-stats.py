@@ -2,6 +2,7 @@
 """
 Module defines main function which outputs summar of logs
 """
+import re
 import sys
 
 
@@ -36,10 +37,18 @@ def check_format(log: str) -> bool:
     """
     Verify single line log format
     """
-    log_elms = log.split(' ')
-    if len(log_elms) != 9:
-        return False
-    if log_elms[-1][:-1].isdigit() and log_elms[-2].isdigit():
+    host_re = r'((\d{1,3}\.){3}\d{1,3}|\w+)\s?'
+    hyphen_re = r'\-\s?'
+    date_re = r'\[\d{4}\-\d{2}\-\d{2}\s(\d{2}:){2}\d{2}\.\d{6}\]\s'
+    request_re = r'"GET\s/projects/260\sHTTP/1.1"\s'
+    method_re = r'\d{3}\s'
+    file_size_re = r'\d+'
+
+    log_re = re.compile(
+        host_re + hyphen_re + date_re + request_re + method_re + file_size_re
+    )
+
+    if log_re.match(log):
         return True
     return False
 
