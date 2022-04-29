@@ -23,10 +23,11 @@ def main() -> None:
                 tot_file_size += file_size
                 stat_cod_dict[stat_code] += 1
                 lines_count += 1
-            if lines_count == 10:
+            if lines_count == 10 :
                 output_summary(tot_file_size, stat_cod_dict)
                 lines_count = 0
-    except KeyboardInterrupt:
+        output_summary(tot_file_size, stat_cod_dict)
+    except (KeyboardInterrupt):
         output_summary(tot_file_size, stat_cod_dict)
     return None
 
