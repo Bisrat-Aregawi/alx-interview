@@ -24,7 +24,7 @@ def main() -> None:
                 tot_file_size += file_size
                 stat_cod_dict[stat_code] += 1
                 lines_count += 1
-            if lines_count == 10 :
+            if lines_count == 10:
                 output_summary(tot_file_size, stat_cod_dict)
                 lines_count = 0
         output_summary(tot_file_size, stat_cod_dict)
@@ -64,7 +64,7 @@ def output_summary(tot_size: int, status_codes: dict) -> None:
         None
     """
     sys.stdout.write('File size: {}\n'.format(tot_size))
-    for code, count in status_codes.items():
+    for code, count in sorted(status_codes.items()):
         if status_codes.get(code):
             sys.stdout.write('{}: {}\n'.format(code, count))
     sys.stdout.flush()
