@@ -21,18 +21,21 @@ def validUTF8(data):
     left = -1
     for num in data:
         done = False
-        if left == 0 or data[0] == num:
-            for key in validation_table.keys():
-                if bin_str(num)[:len(key)] == key:
-                    left = validation_table[key]
-                    done = True
-        if done:
-            continue
+        bin = bin_str(num)
+        if len(bin) == 8:
+            if left == 0 or data[0] == num:
+                for key in validation_table.keys():
+                    if bin_str(num)[:len(key)] == key:
+                        left = validation_table[key]
+                        done = True
+            if done:
+                continue
 
-        if bin_str(num)[0:2] == "10":
-            left -= 1
-        else:
-            return False
+            if len(bin) == 8 and bin[0:2] == "10":
+                left -= 1
+            else:
+                return False
+        return False
     return True
 
 
