@@ -2,10 +2,8 @@
 """ Module defines `validUTF8` function
 """
 
-from typing import List
 
-
-def validUTF8(data: List[int]) -> bool:
+def validUTF8(data):
     """ Validate whether data set represents valid UTF-8 encoding
 
     Args:
@@ -38,7 +36,9 @@ def validUTF8(data: List[int]) -> bool:
     return True
 
 
-def bin_str(num: int) -> str:
+def bin_str(num):
+    """ Return binary as a string of passed number
+    """
     binry = ""
 
     while num:
