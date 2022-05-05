@@ -12,42 +12,31 @@ def validUTF8(data):
     Returns:
         True if data set holds valid UTF-8 envoding, False otherwise
     """
-    validation_table = {
-            "0": 0,
-            "110": 1,
-            "1110": 2,
-            "11110": 3,
-            }
-    left = -1
-    for num in data:
-        done = False
-        bin = bin_str(num)
-        if len(bin) == 8:
-            if left == 0 or data[0] == num:
-                for key in validation_table.keys():
-                    if bin_str(num)[:len(key)] == key:
-                        left = validation_table[key]
-                        done = True
-            if done:
-                continue
-
-            if len(bin) == 8 and bin[0:2] == "10":
-                left -= 1
-            else:
-                return False
-        return False
+    idx1 = 0
+    while idx1 < len(data):
+        bytes = bytes_count(data[idx1])
+        if bytes is not None:
+            idx2 = 1
+            while idx2 < bytes:
+                if idx1 + idx2 >= len(data) or data[idx1 + idx2] & 192 != 128:
+                    return False
+                idx2 += 1
+            idx1 += bytes
     return True
 
 
-def bin_str(num):
-    """ Return binary as a string of passed number
+def bytes_count(num):
+    """ Return number of bytes represented by number
     """
-    binry = ""
-
-    while num:
-        binry += str(num % 2)
-        num = int(num / 2)
-    if len(binry) < 8:
-        binry += '0'*(8 - len(binry))
-
-    return binry[::-1]
+    if num >= 255:
+        return None
+    if num & 128 == 0:
+        return 1
+    elif num & 224 == 192:
+        return 2
+    elif num & 240 == 224:
+        return 3
+    elif num & 248 == 240:
+        return 4
+    else:
+        return None
