@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 """Module defines `rotate_2d_matrix` function"""
-
-
 from typing import Any, List
 
 
