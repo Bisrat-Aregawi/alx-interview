@@ -1,9 +1,8 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """Module defines `rotate_2d_matrix` function"""
-from typing import Any, List
 
 
-def rotate_2d_matrix(matrix: List[List[Any]]) -> None:
+def rotate_2d_matrix(matrix):
     """In-place rotate a 2d square matrix 90 deg CW
 
     Args:
